@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Product_data from "../data/products.json";
 import Item_details from "./item_details";
+import quality_counter from "./quantity_counter";
 var totalval = 0;
 //reduxx gloabl state
 
@@ -15,6 +16,7 @@ class Items_list extends Component {
     };
   }
 
+  reset_stats = () => {};
   async total_cart_handler(t_price) {
     // used to display total cart value
     console.log(this);
@@ -27,6 +29,8 @@ class Items_list extends Component {
     //module develope to filter cart
     selected_color = this.refs.color_pallete.value;
     selected_color = this.setState({ curr_color: selected_color });
+    const q_c = new quality_counter();
+    q_c.print_length();
   };
 
   render() {
@@ -52,11 +56,13 @@ class Items_list extends Component {
               products.colour === this.state.curr_color ||
               this.state.curr_color === "any"
           ).map((items, index) => {
-            // filter records
+            // filter record
+
+            //this.child.setState((quanity: 0));
             return (
               <Item_details
                 ind_item={items}
-                key={`Item key ${index}`}
+                key={index}
                 pricecallback={this.total_cart_handler}
                 Item_details
                 ref={this.child}
